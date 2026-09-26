@@ -1,0 +1,25 @@
+services:
+    postgres:
+      image: postgres:18
+      container_name: postgres
+      environment:
+        POSTGRES_DB: order_db
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+      ports:
+        - "5432:5432"
+      volumes:
+        - postgres_data:/var/lib/postgresql
+
+    spring-boot:
+      build: .
+      container_name: order_mgmt-spring-boot
+      ports:
+        - "8080:8080"
+      depends_on:
+        - postgres
+      volumes:
+        - "./logs:/app/logs"
+
+volumes:
+  postgres_data:
