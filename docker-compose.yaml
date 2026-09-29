@@ -12,6 +12,7 @@ services:
         - postgres_data:/var/lib/postgresql
 
     spring-boot:
+      build: .
       image: order_mgmt-spring-boot:latest
       container_name: order_mgmt-spring-boot
       ports:
