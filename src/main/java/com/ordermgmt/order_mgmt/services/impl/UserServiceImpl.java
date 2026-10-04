@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserDetailsService {
         Users users = usersRepo.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid username"));
 
-        return User.withUsername(username)
+        return User.withUsername(users.getUsername())
                 .password(users.getPassword())
                 .disabled(!users.getActive())
                 .build();

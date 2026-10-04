@@ -29,7 +29,7 @@ public class SpringConfig {
         .formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/dashboard", true)
+                .defaultSuccessUrl("/", true)
                 .permitAll()
         )
         .logout(logout -> logout
