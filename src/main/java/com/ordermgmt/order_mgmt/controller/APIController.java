@@ -28,6 +28,7 @@ public class APIController {
     public ResponseEntity<Product> addNewProduct(
             @RequestParam("name") String name,
             @RequestParam("price") Integer price,
+            @RequestParam("selling_price") Integer selling_price,
             @RequestParam("stock_qty") Integer stock_qty,
             @RequestParam("description") String description
     )
@@ -35,6 +36,7 @@ public class APIController {
         Product product = new Product();
         product.setName(name);
         product.setPrice(price);
+        product.setSelling_price(selling_price);
         product.setStock_qty(stock_qty);
         product.setDescription(description);
 
@@ -46,6 +48,7 @@ public class APIController {
     public ResponseEntity<Product> editProduct(
         @RequestParam("name") String name,
         @RequestParam("price") Integer price,
+        @RequestParam("selling_price") Integer selling_price,
         @RequestParam("stock_qty") Integer stock_qty,
         @RequestParam("description") String description,
         @PathVariable Integer productId)
@@ -53,6 +56,7 @@ public class APIController {
         Product product = new Product();
         product.setName(name);
         product.setPrice(price);
+        product.setSelling_price(selling_price);
         product.setStock_qty(stock_qty);
         product.setDescription(description);
 

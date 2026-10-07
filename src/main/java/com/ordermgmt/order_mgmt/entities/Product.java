@@ -20,6 +20,8 @@ public class Product {
 
     private Integer price;
 
+    private Integer selling_price;
+
     private Integer stock_qty;
 
     private String description;

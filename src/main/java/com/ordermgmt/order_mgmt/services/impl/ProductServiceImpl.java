@@ -41,6 +41,7 @@ public class ProductServiceImpl implements ProductService {
         Product productInfo = this.productRepo.findById(productId).orElseThrow();
         productInfo.setName(product.getName());
         productInfo.setPrice(product.getPrice());
+        productInfo.setSelling_price(product.getSelling_price());
         productInfo.setStock_qty(product.getStock_qty());
         productInfo.setDescription(product.getDescription());
 
