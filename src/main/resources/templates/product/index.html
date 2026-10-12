@@ -44,7 +44,7 @@
                                                         type="button"
                                                         class="btn btn-sm btn-primary"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#modal-add-user"
+                                                        data-bs-target="#modal-add-product"
                                                 >
                                                     <i class="bi bi-person-plus-fill me-1" aria-hidden="true"> </i>
                                                     New Product
@@ -81,6 +81,9 @@
                                                                     type="button"
                                                                     class="btn btn-outline-secondary"
                                                                     aria-label="Edit Alexander Pierce"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modal-edit-product"
+                                                                    th:onclick="|getProductDetail('${product.productId}')|"
                                                             >
                                                                 <i class="bi bi-pencil" aria-hidden="true"> </i>
                                                             </button>
@@ -88,8 +91,9 @@
                                                                     type="button"
                                                                     class="btn btn-outline-danger"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#modal-delete-user"
-                                                                    aria-label="Delete Alexander Pierce"
+                                                                    data-bs-target="#modal-delete-product"
+                                                                    aria-label="Delete"
+                                                                    th:onclick="|getProductId('${product.productId}')|"
                                                             >
                                                                 <i class="bi bi-trash" aria-hidden="true"> </i>
                                                             </button>
@@ -139,19 +143,19 @@
                     </div>
                     <!--end::Row-->
 
-                    <!--begin::Add User Modal-->
+                    <!--begin::Add product Modal-->
                     <div
                             class="modal fade"
-                            id="modal-add-user"
+                            id="modal-add-product"
                             tabindex="-1"
-                            aria-labelledby="modal-add-user-label"
+                            aria-labelledby="modal-add-product-label"
                             aria-hidden="true"
                     >
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form>
+                                <form method="post" th:action="@{/addProduct}" th:object="${product}">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modal-add-user-label">Add new product</h5>
+                                        <h5 class="modal-title" id="modal-add-product-label">Add new product</h5>
                                         <button
                                                 type="button"
                                                 class="btn-close"
@@ -164,6 +168,7 @@
                                             <label for="product-name" class="form-label"> Product Name </label>
                                             <input
                                                     type="text"
+                                                    th:field="*{name}"
                                                     class="form-control"
                                                     id="product-name"
                                                     placeholder="Product Name"
@@ -174,6 +179,7 @@
                                             <label for="cost-price" class="form-label"> Cost Price </label>
                                             <input
                                                     type="number"
+                                                    th:field="*{price}"
                                                     class="form-control"
                                                     id="cost-price"
                                                     placeholder="Cost Price"
@@ -184,6 +190,7 @@
                                             <label for="selling-price" class="form-label"> Selling Price </label>
                                             <input
                                                     type="number"
+                                                    th:field="*{selling_price}"
                                                     class="form-control"
                                                     id="selling-price"
                                                     placeholder="Selling Price"
@@ -194,11 +201,20 @@
                                             <label for="stock-qty" class="form-label"> Stock Quantity</label>
                                             <input
                                                     type="number"
+                                                    th:field="*{stock_qty}"
                                                     class="form-control"
                                                     id="stock-qty"
                                                     placeholder="Stock Quantity"
                                                     required
                                             />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="product-description" class="form-label">Product Description</label>
+                                            <textarea
+                                                    class="form-control"
+                                                    th:field="*{description}"
+                                                    id="product-description"
+                                            ></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -211,14 +227,101 @@
                             </div>
                         </div>
                     </div>
-                    <!--end::Add User Modal-->
+                    <!--end::Add product Modal-->
 
-                    <!--begin::Delete User Modal-->
+                    <!--begin::Edit product Modal-->
                     <div
                             class="modal fade"
-                            id="modal-delete-user"
+                            id="modal-edit-product"
                             tabindex="-1"
-                            aria-labelledby="modal-delete-user-label"
+                            aria-labelledby="modal-edit-product-label"
+                            aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="post" th:action="@{/editProduct}" th:object="${product}">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modal-edit-product-label">Edit product</h5>
+                                        <button
+                                                type="button"
+                                                class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"
+                                        ></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" id="e-productId" th:field="*{productId}"/>
+                                        <div class="mb-3">
+                                            <label for="e-product-name" class="form-label"> Product Name </label>
+                                            <input
+                                                    type="text"
+                                                    th:field="*{name}"
+                                                    class="form-control"
+                                                    id="e-product-name"
+                                                    placeholder="Product Name"
+                                                    required
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="e-cost-price" class="form-label"> Cost Price </label>
+                                            <input
+                                                    type="number"
+                                                    th:field="*{price}"
+                                                    class="form-control"
+                                                    id="e-cost-price"
+                                                    placeholder="Cost Price"
+                                                    required
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="e-selling-price" class="form-label"> Selling Price </label>
+                                            <input
+                                                    type="number"
+                                                    th:field="*{selling_price}"
+                                                    class="form-control"
+                                                    id="e-selling-price"
+                                                    placeholder="Selling Price"
+                                                    required
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="e-stock-qty" class="form-label"> Stock Quantity</label>
+                                            <input
+                                                    type="number"
+                                                    th:field="*{stock_qty}"
+                                                    class="form-control"
+                                                    id="e-stock-qty"
+                                                    placeholder="Stock Quantity"
+                                                    required
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="e-product-description" class="form-label">Product Description</label>
+                                            <textarea
+                                                    class="form-control"
+                                                    th:field="*{description}"
+                                                    id="e-product-description"
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Update product</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Edit product Modal-->
+
+                    <!--begin::Delete product Modal-->
+                    <div
+                            class="modal fade"
+                            id="modal-delete-product"
+                            tabindex="-1"
+                            aria-labelledby="modal-delete-product-label"
                             aria-hidden="true"
                     >
                         <div class="modal-dialog">
@@ -234,22 +337,22 @@
                                 </div>
                                 <div class="modal-body">
                                     <p class="mb-0">
-                                        Are you sure you want to delete this user? All content owned by the account
-                                        will be reassigned to the site administrator. This action cannot be undone.
+                                        Are you sure you want to delete this product?
                                     </p>
                                 </div>
                                 <div class="modal-footer">
+                                    <input type="hidden" id="d-productId" />
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                         Cancel
                                     </button>
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                                        Delete user
+                                    <button type="button" class="btn btn-danger" id="deleteProduct">
+                                        Delete Product
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--end::Delete User Modal-->
+                    <!--end::Delete product Modal-->
                 </div>
                 <!--end::Container-->
             </div>
@@ -258,5 +361,59 @@
         <footer th:replace="~{fragments/layout :: footer}"></footer>
         <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
     </div>
+    <script>
+        async function getProductDetail(productId){
+            try {
+                const response = await fetch(`/product/${productId}`);
+
+                if(!response.ok){
+                    throw new Error("Failed to fetch product");
+                }
+
+                const product = await response.json();
+
+                console.log(product);
+
+                $('#e-productId').val(product.productId);
+                $('#e-product-name').val(product.name);
+                $('#e-cost-price').val(product.price);
+                $('#e-selling-price').val(product.selling_price);
+                $('#e-stock-qty').val(product.stock_qty);
+                $('#e-product-description').html(product.description);
+
+            } catch (error){
+                console.error(error);
+                console.log("Could not load product details.");
+            }
+        }
+
+        function getProductId(productId){
+           $('#d-productId').val(productId);
+           //alert(productId);
+        }
+
+        $("#deleteProduct").on('click', async function (){
+            var productId = $('#d-productId').val();
+            const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+            const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+
+            try {
+                const response = await fetch(`/deleteProduct/${productId}`, {
+                    method: "DELETE",
+                    headers: {
+                        [csrfHeader]: csrfToken
+                    }
+                });
+
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    console.error("Failed to delete product.");
+                }
+            } catch (error) {
+                console.error("Could not delete product:", error);
+            }
+        });
+    </script>
 </body>
 </html>

@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto>  getAllProducts(){
-        List<Product> allproducts = this.productRepo.findAll();
+        List<Product> allproducts = this.productRepo.findAllByOrderByProductIdDesc();
         List<ProductDto> productDtos= allproducts.stream()
                 .map(product-> this.modelMapper.map(product, ProductDto.class))
                 .collect(Collectors.toList());
@@ -53,5 +53,11 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Integer productId){
         Product product = this.productRepo.findById(productId).orElseThrow();
         this.productRepo.delete(product);
+    }
+
+    @Override
+    public Product getProductById(Integer productId){
+        Product product = this.productRepo.findById(productId).orElseThrow();
+        return product;
     }
 }
