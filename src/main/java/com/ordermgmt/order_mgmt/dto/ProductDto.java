@@ -1,5 +1,6 @@
 package com.ordermgmt.order_mgmt.dto;
 
+import com.ordermgmt.order_mgmt.entities.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,5 +20,6 @@ public class ProductDto {
 
     private Integer stock_qty;
 
+    private Category category;
 
 }

@@ -1,6 +1,7 @@
 package com.ordermgmt.order_mgmt.controller;
 
 import com.ordermgmt.order_mgmt.entities.Product;
+import com.ordermgmt.order_mgmt.services.CategoryService;
 import com.ordermgmt.order_mgmt.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +16,15 @@ public class ProductController {
     @Autowired
     public ProductService productService;
 
+    @Autowired
+    public CategoryService categoryService;
+
 
     @GetMapping("/product")
     public String getALlProducts(Model model){
         model.addAttribute("pageTitle", "Product List");
         model.addAttribute("productList", productService.getAllProducts());
+        model.addAttribute("categoryList", categoryService.getAllCategories());
         model.addAttribute("product", new Product());
         return "product/index";
     }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
 <!--begin::Head-->
 <head th:replace="~{fragments/layout :: head}"></head>
 <!--end::Head-->
@@ -65,6 +65,7 @@
                                                 <th>CostPrice</th>
                                                 <th>Selling Price</th>
                                                 <th>Stock Qty.</th>
+                                                <th>Category</th>
                                                 <th class="text-end">Actions</th>
                                             </tr>
                                             </thead>
@@ -75,6 +76,7 @@
                                                     <td th:text="${product.price}"></td>
                                                     <td th:text="${product.selling_price}"></td>
                                                     <td th:text="${product.stock_qty}"></td>
+                                                    <td th:text="${product.category != null? product.category.categoryName : '-'}"></td>
                                                     <td class="text-end">
                                                         <div class="btn-group btn-group-sm">
                                                             <button
@@ -177,14 +179,13 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="category" class="form-label"> Category</label>
-                                            <input
-                                                    type="text"
-                                                    th:field="*{name}"
-                                                    class="form-control"
-                                                    id="category"
-                                                    placeholder="Category"
-                                                    required
-                                            />
+                                            <select class="form-control" id="category" th:field="*{category}">
+                                                <option value="">Select the category</option>
+                                                <option th:each="category : ${categoryList}"
+                                                        th:value="${category.categoryId}"
+                                                        th:text="${category.categoryName}"
+                                                ></option>
+                                            </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="cost-price" class="form-label"> Cost Price </label>

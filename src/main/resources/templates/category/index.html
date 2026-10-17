@@ -44,7 +44,7 @@
                                                     type="button"
                                                     class="btn btn-sm btn-primary"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#modal-add-product"
+                                                    data-bs-target="#modal-add-category"
                                             >
                                                 <i class="bi bi-person-plus-fill me-1" aria-hidden="true"> </i>
                                                 New Category
@@ -142,16 +142,16 @@
                 <!--begin::Add product Modal-->
                 <div
                         class="modal fade"
-                        id="modal-add-product"
+                        id="modal-add-category"
                         tabindex="-1"
-                        aria-labelledby="modal-add-product-label"
+                        aria-labelledby="modal-add-category-label"
                         aria-hidden="true"
                 >
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form method="post" th:action="@{/addProduct}" th:object="${product}">
+                            <form method="post" th:action="@{/addCategory}" th:object="${category}">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modal-add-product-label">Add new product</h5>
+                                    <h5 class="modal-title" id="modal-add-product-label">Add new Category</h5>
                                     <button
                                             type="button"
                                             class="btn-close"
@@ -161,66 +161,22 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="mb-3">
-                                        <label for="product-name" class="form-label"> Product Name </label>
+                                        <label for="category-name" class="form-label"> Category Name </label>
                                         <input
                                                 type="text"
-                                                th:field="*{name}"
+                                                th:field="*{categoryName}"
                                                 class="form-control"
-                                                id="product-name"
-                                                placeholder="Product Name"
+                                                id="category-name"
+                                                placeholder="Category Name"
                                                 required
                                         />
                                     </div>
                                     <div class="mb-3">
-                                        <label for="category" class="form-label"> Category</label>
-                                        <input
-                                                type="text"
-                                                th:field="*{name}"
-                                                class="form-control"
-                                                id="category"
-                                                placeholder="Category"
-                                                required
-                                        />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="cost-price" class="form-label"> Cost Price </label>
-                                        <input
-                                                type="number"
-                                                th:field="*{price}"
-                                                class="form-control"
-                                                id="cost-price"
-                                                placeholder="Cost Price"
-                                                required
-                                        />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="selling-price" class="form-label"> Selling Price </label>
-                                        <input
-                                                type="number"
-                                                th:field="*{selling_price}"
-                                                class="form-control"
-                                                id="selling-price"
-                                                placeholder="Selling Price"
-                                                required
-                                        />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="stock-qty" class="form-label"> Stock Quantity</label>
-                                        <input
-                                                type="number"
-                                                th:field="*{stock_qty}"
-                                                class="form-control"
-                                                id="stock-qty"
-                                                placeholder="Stock Quantity"
-                                                required
-                                        />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="product-description" class="form-label">Product Description</label>
+                                        <label for="category-description" class="form-label">Category Description</label>
                                         <textarea
                                                 class="form-control"
-                                                th:field="*{description}"
-                                                id="product-description"
+                                                th:field="*{categoryDescription}"
+                                                id="category-description"
                                         ></textarea>
                                     </div>
                                 </div>
@@ -228,7 +184,7 @@
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                         Cancel
                                     </button>
-                                    <button type="submit" class="btn btn-primary">Create product</button>
+                                    <button type="submit" class="btn btn-primary">Create Category</button>
                                 </div>
                             </form>
                         </div>
@@ -236,130 +192,7 @@
                 </div>
                 <!--end::Add product Modal-->
 
-                <!--begin::Edit product Modal-->
-                <div
-                        class="modal fade"
-                        id="modal-edit-product"
-                        tabindex="-1"
-                        aria-labelledby="modal-edit-product-label"
-                        aria-hidden="true"
-                >
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form method="post" th:action="@{/editProduct}" th:object="${product}">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modal-edit-product-label">Edit product</h5>
-                                    <button
-                                            type="button"
-                                            class="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                    ></button>
-                                </div>
-                                <div class="modal-body">
-                                    <input type="hidden" id="e-productId" th:field="*{productId}"/>
-                                    <div class="mb-3">
-                                        <label for="e-product-name" class="form-label"> Product Name </label>
-                                        <input
-                                                type="text"
-                                                th:field="*{name}"
-                                                class="form-control"
-                                                id="e-product-name"
-                                                placeholder="Product Name"
-                                                required
-                                        />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="e-cost-price" class="form-label"> Cost Price </label>
-                                        <input
-                                                type="number"
-                                                th:field="*{price}"
-                                                class="form-control"
-                                                id="e-cost-price"
-                                                placeholder="Cost Price"
-                                                required
-                                        />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="e-selling-price" class="form-label"> Selling Price </label>
-                                        <input
-                                                type="number"
-                                                th:field="*{selling_price}"
-                                                class="form-control"
-                                                id="e-selling-price"
-                                                placeholder="Selling Price"
-                                                required
-                                        />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="e-stock-qty" class="form-label"> Stock Quantity</label>
-                                        <input
-                                                type="number"
-                                                th:field="*{stock_qty}"
-                                                class="form-control"
-                                                id="e-stock-qty"
-                                                placeholder="Stock Quantity"
-                                                required
-                                        />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="e-product-description" class="form-label">Product Description</label>
-                                        <textarea
-                                                class="form-control"
-                                                th:field="*{description}"
-                                                id="e-product-description"
-                                        ></textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                        Cancel
-                                    </button>
-                                    <button type="submit" class="btn btn-primary">Update product</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!--end::Edit product Modal-->
 
-                <!--begin::Delete product Modal-->
-                <div
-                        class="modal fade"
-                        id="modal-delete-product"
-                        tabindex="-1"
-                        aria-labelledby="modal-delete-product-label"
-                        aria-hidden="true"
-                >
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modal-delete-user-label">Delete user</h5>
-                                <button
-                                        type="button"
-                                        class="btn-close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                ></button>
-                            </div>
-                            <div class="modal-body">
-                                <p class="mb-0">
-                                    Are you sure you want to delete this product?
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="hidden" id="d-productId" />
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                    Cancel
-                                </button>
-                                <button type="button" class="btn btn-danger" id="deleteProduct">
-                                    Delete Product
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end::Delete product Modal-->
             </div>
             <!--end::Container-->
         </div>
