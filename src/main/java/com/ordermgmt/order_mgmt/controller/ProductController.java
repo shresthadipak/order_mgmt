@@ -22,7 +22,7 @@ public class ProductController {
 
     @GetMapping("/product")
     public String getALlProducts(Model model){
-        model.addAttribute("pageTitle", "Product List");
+        model.addAttribute("pageTitle", "Product");
         model.addAttribute("productList", productService.getAllProducts());
         model.addAttribute("categoryList", categoryService.getAllCategories());
         model.addAttribute("product", new Product());

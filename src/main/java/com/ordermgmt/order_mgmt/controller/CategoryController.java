@@ -17,7 +17,7 @@ public class CategoryController {
 
     @GetMapping("/category")
     public String getAllCategory(Model model){
-        model.addAttribute("pageTitle", "Category List");
+        model.addAttribute("pageTitle", "Category");
         model.addAttribute("categoryList", categoryService.getAllCategories());
         model.addAttribute("category", new Category());
         return "category/index";

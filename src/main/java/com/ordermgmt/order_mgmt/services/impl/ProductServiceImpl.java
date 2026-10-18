@@ -44,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
         productInfo.setSelling_price(product.getSelling_price());
         productInfo.setStock_qty(product.getStock_qty());
         productInfo.setDescription(product.getDescription());
+        productInfo.setCategory(product.getCategory());
 
         Product updateProduct = this.productRepo.save(productInfo);
         return this.modelMapper.map(updateProduct, Product.class);

@@ -54,11 +54,11 @@
     <!--end::Accessibility Meta Tags-->
 
     <!--begin::Primary Meta Tags-->
-    <meta name="title" content="AdminLTE v4 | Dashboard" />
+    <meta name="title" content="ORMS | Dashboard" />
     <meta name="author" content="ColorlibHQ" />
     <meta
             name="description"
-            content="AdminLTE is a free Bootstrap 5 admin dashboard template with almost 50 example pages, built with vanilla JS and designed with accessibility in mind."
+            content="ORMS is a order management system."
     />
     <meta
             name="keywords"
@@ -280,14 +280,14 @@
                 <!--end::Color Mode Toggle-->
 
                 <!--begin::User Menu Dropdown-->
-                <li class="nav-item dropdown user-menu">
+                <li class="nav-item dropdown user-menu" th:fragment="session-info">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         <img
                                 src="./assets/img/user2-160x160.jpg"
                                 class="user-image rounded-circle shadow"
                                 alt="Alexander Pierce"
                         />
-                        <span class="d-none d-md-inline">Alexander Pierce</span>
+                        <span class="d-none d-md-inline" th:text="${username != null ? username : 'N/A'}"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                         <!--begin::User Image-->
@@ -297,8 +297,8 @@
                                     class="rounded-circle shadow"
                                     alt="Alexander Pierce"
                             />
-                            <p>
-                                Alexander Pierce - Web Developer
+                            <p th:text="${username != null ? username : 'N/A'}">
+
                                 <!--<small>Member since Nov. 2023</small>-->
                             </p>
                         </li>
@@ -306,7 +306,11 @@
                         <!--begin::Menu Footer-->
                         <li class="user-footer">
                             <a href="#" class="btn btn-outline-secondary">Profile</a>
-                            <a href="#" class="btn btn-outline-danger float-end">Sign out</a>
+                            <form th:action="@{/logout}" method="post" class="m-0">
+                                <button type="submit" class="btn btn-outline-danger" style="position: absolute; right: 8px; bottom: 10px;">
+                                    Sign out
+                                </button>
+                            </form>
                         </li>
                         <!--end::Menu Footer-->
                     </ul>
@@ -406,13 +410,13 @@
             <!--begin::Row-->
             <div class="row">
                 <div class="col-sm-6">
-                    <h1 class="mb-0 fs-3">Dashboard</h1>
+                    <h1 class="mb-0 fs-3" th:text="${pageTitle != null ? pageTitle: '-'}"></h1>
                 </div>
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb float-sm-end">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                            <li class="breadcrumb-item active" aria-current="page" th:text="${pageTitle != null ? pageTitle: '-'}"></li>
                         </ol>
                     </nav>
                 </div>
