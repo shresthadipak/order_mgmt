@@ -398,10 +398,13 @@
 
                 $('#e-productId').val(product.productId);
                 $('#e-product-name').val(product.name);
+                $('#e-category').val(product.category?.categoryId);
                 $('#e-cost-price').val(product.price);
                 $('#e-selling-price').val(product.selling_price);
                 $('#e-stock-qty').val(product.stock_qty);
                 $('#e-product-description').html(product.description);
+
+                console.log("CategoryInfo:", product.category?.categoryId);
 
             } catch (error){
                 console.error(error);
