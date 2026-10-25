@@ -3,6 +3,7 @@ package com.ordermgmt.order_mgmt.controller;
 import com.ordermgmt.order_mgmt.entities.Category;
 import com.ordermgmt.order_mgmt.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class CategoryController {
     }
 
     @PostMapping("/addCategory")
-    public String addCategory(@ModelAttribute("category")Category category){
+    public String addCategory(@ModelAttribute("category") Category category){
         //save a category data
         categoryService.addNewCategory(category);
         return "redirect:/category";
@@ -32,5 +33,19 @@ public class CategoryController {
     @ResponseBody
     public Category getCategoryDetail(@PathVariable Integer categoryId){
         return categoryService.getCategoryById(categoryId);
+    }
+
+    @PostMapping("/editCategory")
+    public String editCategory(@ModelAttribute("category") Category category){
+        Integer categoryId = category.getCategoryId();
+        categoryService.editCategory(category, categoryId);
+        return "redirect:/category";
+    }
+
+    @DeleteMapping("/deleteCategory/{categoryId}")
+    @ResponseBody
+    public ResponseEntity<Void> deleteCategory(@PathVariable Integer categoryId){
+        categoryService.deleteCategory(categoryId);
+        return ResponseEntity.noContent().build();
     }
 }
