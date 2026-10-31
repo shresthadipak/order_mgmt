@@ -32,3 +32,10 @@ build/
 ### VS Code ###
 .vscode/
 *.tar
+
+###custom ignore###
+logs/
+.env
+docker-compose.yaml
+
+
