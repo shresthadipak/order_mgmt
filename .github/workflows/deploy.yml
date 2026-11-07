@@ -15,4 +15,11 @@ on:
         - name: Checkout repository
           uses: actions/checkout@v6
 
+        - name: Set up Java
+          uses: actions/setup-java@v4
+          with:
+            distribution: temurin
+            java-version: "25"
+            cache: maven
+
 
