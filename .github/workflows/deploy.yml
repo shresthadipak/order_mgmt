@@ -22,4 +22,9 @@ on:
             java-version: "25"
             cache: maven
 
+        - name: Run tests
+          run: |
+            chmod +x mvm
+            ./mvnw -B test
+
 
