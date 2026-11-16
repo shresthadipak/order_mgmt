@@ -33,7 +33,7 @@ jobs:
       - name: Run tests
         run: |
           chmod +x mvnw
-          mkdir -p logs
+          mkdir -p /app/logs
           ./mvnw -B test
 
 #Step 5 - Build the Spring Boot Docker image using GitHub Actions
