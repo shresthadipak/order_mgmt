@@ -32,20 +32,20 @@ jobs:
 #Step 4 - Run Spring Boot tests using Maven
       - name: Run tests
         run: |
-          chmod +x mvm
+          chmod +x mvnw
           ./mvnw -B test
 
 #Step 5 - Build the Spring Boot Docker image using GitHub Actions
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: false
-          load: true
-          tags: order_mgmt:latest
+      #- name: Build Docker image
+      #  uses: docker/build-push-action@v6
+      #  with:
+      #    context: .
+      #    push: false
+      #    load: true
+       #   tags: order_mgmt:latest
 
 #Step 6 - Push your Docker image to GitHub Container Registry (GHCR)
       #Add the GHCR Login Step
@@ -70,7 +70,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
-        run:
+        run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
         
@@ -85,7 +85,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_ed25519 \
             -o StrictHostKeyChecking=yes \
-            ${{ secrets.SSH_USER }}@{{ secrets.SSH_HOST }} \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
             "echo 'SSH connection successful!'"
 
 #Step 9 - Prepare Production Docker Compose configuration
