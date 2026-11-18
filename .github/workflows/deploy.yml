@@ -110,6 +110,14 @@ jobs:
 
 #Step 9 - Prepare Production Docker Compose configuration
 #create docker.prod.yaml and .env
+      - name: Copy production Compose file
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "compose.prod.yaml"
+          target: "/opt/order_mgmt/"
 
           
 
