@@ -109,7 +109,7 @@ jobs:
             "echo 'SSH connection successful!'"
 
 #Step 9 - Prepare Production Docker Compose configuration
-#create docker.prod.yaml and .env
+#upload compose.prod.yaml
       - name: Copy production Compose file
         uses: appleboy/scp-action@v1
         with:
@@ -119,6 +119,20 @@ jobs:
           source: "compose.prod.yaml"
           target: "/opt/order_mgmt/"
 
+#Step 10 -Deploy application on Oracle
+      - name: Deploy to Oracle server
+        run: |
+          ssh -i ~/.ssh/id_ed25519 \
+            -o StrictHostKeyChecking=yes \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "cd /opt/order_mgmt && sudo docker compose -f compose.prod.yaml pull && sudo docker compose -f compose.prod.yaml up -d"
+
+#Step 11 - After deployment, verify on Oracle
+   #login oracle server
+   #sudo docker ps
+   #sudo docker logs order_mgmt-spring-boot --tail 50
+   #sudo docker logs postgres --tail 30
+   #curl -I http://localhost:8080
           
 
 
