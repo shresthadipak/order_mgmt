@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -94,6 +95,26 @@ class ProductServiceTest {
 
         verify(productRepo, times(1)).findAllByOrderByProductIdDesc();
         verify(modelMapper, times(2)).map(any(Product.class), eq(ProductDto.class));
+    }
+
+    @Test
+    void shouldGetProductById(){
+
+        //Arrange
+        Integer productId = 1;
+        Product product = new Product();
+
+        when(productRepo.findById(productId))
+                .thenReturn(Optional.of(product));
+
+        // Act
+        Product result = productService.getProductById(productId);
+
+        //Assert
+        assertNotNull(result);
+        assertEquals(product, result);
+
+        verify(productRepo, times(1)).findById(productId);
     }
 
 }
